@@ -8,13 +8,13 @@
                     <p>Some smaller Text</p>
                     <i class="icon ion-checkmark-round"></i>
                 </ion-item>
-                <ion-item class="item-icon-right balanced  " id="raidplaner-list-item3">Accept
+                <ion-item class="item-icon-right balanced" id="raidplaner-list-item3">Accept
                     <i class="icon ion-checkmark-round"></i>
                 </ion-item>
-                <ion-item class="item-icon-right  " id="raidplaner-list-item4">Maybe
+                <ion-item class="item-icon-right" id="raidplaner-list-item4">Maybe
                     <i class="icon ion-help"></i>
                 </ion-item>
-                <ion-item class="item-icon-right  " id="raidplaner-list-item5">Rejected
+                <ion-item class="item-icon-right" id="raidplaner-list-item5">Rejected
                     <i class="icon ion-close-round"></i>
                 </ion-item>
             </ion-list>
@@ -24,3 +24,28 @@
         </ion-list>
     </ion-content>
 </ion-view>
+
+<!--<ul class="list littletopspace" ng-init="globalListController.limit=40;" ng-if="globalListController.loginservice.isUserLoggedIn();">
+            <li class="item item-divider list-divider maketransparent" ng-repeat="(country, value) in ((globalListController.result |filter: searchText)| orderBy:'country'|limitTo: globalListController.limit | groupBy: 'country') ">
+                <div class="item-devider-box">
+                    <i class="ion-earth devider-icon"> </i>
+                    <p class="showInline devider-text">{{country}}</p>
+                </div>
+
+                <ul>
+                    <li class="item item-list-servicepoint item-background-{{servicePoint[0].servicePointColor}}" ng-repeat="(servicePointName, servicePoint) in (value | orderBy:'servicePointName'| groupBy: 'servicePointName')" ng-click="globalListController.goToServicePoint(servicePointName)">
+                        <p class="servicepoint"> ServicePoint: {{servicePointName}} ({{servicePoint[0].siteName}})</p>
+                        <ul>
+                            <li ng-repeat="router in servicePoint | orderBy:'routerName'">
+                                <div ng-if="globalListController.platform === 'android' || globalListController.platform === 'ios'" class="showInline">
+                                    <i ng-if="router.push === false" class="ion-ios-email-outline"></i>
+                                    <i ng-if="router.push === true" class="ion-ios-email"></i>
+                                </div>
+                                <i ng-if="router.favorite === false" class="ion-ios-star-outline">  Router: {{router.routerName}}</i>
+                                <i ng-if="router.favorite === true" class="ion-ios-star">  Router: {{router.routerName}}</i>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        </ul>-->
