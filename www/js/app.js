@@ -6,28 +6,30 @@
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
 angular.module('app', ['ionic', 'ngCordova', 'app.controllers', 'app.routes', 'app.services', 'app.directives', 'app.filters'])
+    .run(['$ionicPlatform', '$rootScope', '$cordovaSQLite', 'NewsService', function ($ionicPlatform, $rootScope, $cordovaSQLite, NewsService) {
+        $ionicPlatform.ready(function () {
+            // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
+            // for form inputs)
+            if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
+                cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+                cordova.plugins.Keyboard.disableScroll(true);
+            }
+            if (window.StatusBar) {
+                // org.apache.cordova.statusbar required
+                StatusBar.styleDefault();
+            }
+            if (window.cordova) {
+                $rootScope.db = $cordovaSQLite.openDB({
+                    name: 'my.db',
+                    location: 'default'
+                }); //device
+            } else {
+                $rootScope.db = window.openDatabase('my.db', '1', 'my', 1024 * 1024 * 100); // browser
+            }
 
-.run(['$ionicPlatform', '$cordovaSQLite', 'SQLFactory', '$rootScope', function ($ionicPlatform, $cordovaSQLite, SQLFactory, $rootScope) {
-    $ionicPlatform.ready(function () {
-        // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
-        // for form inputs)
-        if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
-            cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
-            cordova.plugins.Keyboard.disableScroll(true);
-        }
-        if (window.StatusBar) {
-            // org.apache.cordova.statusbar required
-            StatusBar.styleDefault();
-        }
-        if (window.cordova) {
-            $rootScope.db = $cordovaSQLite.openDB({
-                name: "guilder.db"
-            }); //device
-        } else {
-            $rootScope.db = window.openDatabase("guilder.db", '1', 'guilder', 1024 * 1024 * 100); // browser
-        }
-        $cordovaSQLite.execute($rootScope.db, 'CREATE TABLE IF NOT EXISTS News (id INTEGER PRIMARY KEY AUTOINCREMENT, guildId VARCHAR(50), title VARCHAR(128), img BLOP, text VARCHAR(128), icon VARCHAR(50), date VARCHAR(128), author VARCHAR(50))');
-        SQLFactory.connectToDatabase();
-        SQLFactory.getNews(true);
-    });
+            $cordovaSQLite.execute($rootScope.db, 'CREATE TABLE IF NOT EXISTS News (id INTEGER PRIMARY KEY AUTOINCREMENT, guildId VARCHAR(50), title VARCHAR(128), img BLOP, text VARCHAR(128), icon VARCHAR(50), date VARCHAR(128), author VARCHAR(50))');
+            NewsService.connectToDatabase();
+            NewsService.getNews(true);
+
+        });
 }])

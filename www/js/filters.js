@@ -1,11 +1,5 @@
 angular.module('app.filters', [])
-    .filter('reverse', function () {
-        return function (items) {
-            return items.slice().reverse();
-        };
-    })
-
-.filter('groupBy', ['app.filterStabilize', function (stabilize) {
+    .filter('groupBy', ['app.filterStabilize', function (stabilize) {
         return stabilize(function (data, key) {
             if (!(data && key)) return;
             var result = {};
