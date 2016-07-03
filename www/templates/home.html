@@ -1,13 +1,13 @@
 <ion-view title="Home">
     <ion-content padding="true" class="has-header">
 
-        <div class="list card " ng-repeat="item in news | reverse">
+        <div class="list card " ng-repeat="item in news">
             <ion-item class="item-icon-left dark ">
                 <i class="icon {{item.icon}}"></i>{{item.title}}
                 <span class="item-note">{{item.date}}</span>
             </ion-item>
             <div class=" item item-image">
-                <img src="{{item.image}}" width="100%" height="auto" style="display: block; margin-left: auto; margin-right: auto;">
+                <img ng-src="data:image/jpeg;base64,{{item.img}}" width="100%" height="auto" style="display: block; margin-left: auto; margin-right: auto;">
             </div>
             <div class="item item-body ">
                 <p style="margin-top:0px;color:#000000;">{{item.text}}

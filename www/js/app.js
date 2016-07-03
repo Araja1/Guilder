@@ -5,9 +5,9 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services', 'app.directives', 'app.filters'])
+angular.module('app', ['ionic', 'ngCordova', 'app.controllers', 'app.routes', 'app.services', 'app.directives', 'app.filters'])
 
-.run(function ($ionicPlatform) {
+.run(['$ionicPlatform', '$cordovaSQLite', 'SQLFactory', '$rootScope', function ($ionicPlatform, $cordovaSQLite, SQLFactory, $rootScope) {
     $ionicPlatform.ready(function () {
         // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
         // for form inputs)
@@ -19,5 +19,15 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services',
             // org.apache.cordova.statusbar required
             StatusBar.styleDefault();
         }
+        if (window.cordova) {
+            $rootScope.db = $cordovaSQLite.openDB({
+                name: "guilder.db"
+            }); //device
+        } else {
+            $rootScope.db = window.openDatabase("guilder.db", '1', 'guilder', 1024 * 1024 * 100); // browser
+        }
+        $cordovaSQLite.execute($rootScope.db, 'CREATE TABLE IF NOT EXISTS News (id INTEGER PRIMARY KEY AUTOINCREMENT, guildId VARCHAR(50), title VARCHAR(128), img BLOP, text VARCHAR(128), icon VARCHAR(50), date VARCHAR(128), author VARCHAR(50))');
+        SQLFactory.connectToDatabase();
+        SQLFactory.getNews(true);
     });
-})
+}])

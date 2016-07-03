@@ -4,7 +4,8 @@ angular.module('app.filters', [])
             return items.slice().reverse();
         };
     })
-    .filter('groupBy', ['app.filterStabilize', function (stabilize) {
+
+.filter('groupBy', ['app.filterStabilize', function (stabilize) {
         return stabilize(function (data, key) {
             if (!(data && key)) return;
             var result = {};
@@ -15,10 +16,10 @@ angular.module('app.filters', [])
             }
             return result;
         });
-}])
+    }])
     .factory('app.filterStabilize', [
-  'snx.memoize',
-  function (memoize) {
+      'snx.memoize',
+      function (memoize) {
             function service(fn) {
                 function filter() {
                     var args = [].slice.call(arguments);
@@ -30,10 +31,10 @@ angular.module('app.filters', [])
                 return memoized;
             }
             return service;
-  }
-])
+      }
+    ])
     .factory('app.memoize', [
-  function () {
+      function () {
             function service() {
                 return memoizeFactory.apply(this, arguments);
             }
@@ -54,5 +55,5 @@ angular.module('app.filters', [])
                 return memoized;
             }
             return service;
-  }
-]);
+      }
+    ]);

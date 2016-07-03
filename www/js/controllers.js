@@ -1,7 +1,9 @@
 angular.module('app.controllers', [])
 
-.controller('homeCtrl', ['$scope', 'NewsFactory', function ($scope, NewsFactory) {
-    $scope.news = NewsFactory.getNews();
+.controller('homeCtrl', ['$scope', 'SQLFactory', function ($scope, SQLFactory) {
+    SQLFactory.getNews().then(function (news) {
+        $scope.news = news;
+    });
 }])
 
 .controller('raidplanerCtrl', function ($scope) {
